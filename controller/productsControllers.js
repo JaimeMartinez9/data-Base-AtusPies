@@ -32,4 +32,17 @@ export const updateProduct = async (req, res) => {
     }
 };
 
+export const deleteProduct = async (req, res) => {
+    try {
+        await ProductModel.destroy({
+            where: { products_id: req.params.id }
+        });
+
+        res.status(200).json({ message: 'Producto eliminado con éxito' });
+    } catch (error) {
+        console.error('Error al eliminar el producto:', error); 
+        res.status(500).json({ message: error.message });
+    }
+};
+
 
