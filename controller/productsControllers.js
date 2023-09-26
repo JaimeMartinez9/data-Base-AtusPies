@@ -18,3 +18,18 @@ export const createProduct = async (req, res) => {
     }
 };
 
+
+export const updateProduct = async (req, res) => {
+    try {
+        await ProductModel.update(req.body, {
+            where: { products_id: req.params.id }
+        });
+
+        res.status(200).json({ message: 'Producto actualizado con éxito' });
+    } catch (error) {
+        console.error('Error al actualizar el producto:', error); 
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
