@@ -20,6 +20,14 @@ export const createCategory = async (req, res) => {
 
 export const updateCategory = async (req, res) => {
     try {
+        const category = await CategoryModel.findOne({
+            where: { category_id: req.params.id }
+        });
+
+        if (!category) {
+            return res.status(404).json({ message: 'Categoría no encontrada' });
+        }
+
         await CategoryModel.update(req.body, {
             where: { category_id: req.params.id }
         });
@@ -33,6 +41,14 @@ export const updateCategory = async (req, res) => {
 
 export const deleteCategory = async (req, res) => {
     try {
+        const category = await CategoryModel.findOne({
+            where: { category_id: req.params.id }
+        });
+
+        if (!category) {
+            return res.status(404).json({ message: 'Categoría no encontrada' });
+        }
+
         await CategoryModel.destroy({
             where: { category_id: req.params.id }
         });
