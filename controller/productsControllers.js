@@ -21,6 +21,14 @@ export const createProduct = async (req, res) => {
 
 export const updateProduct = async (req, res) => {
     try {
+        const product = await ProductModel.findOne({
+            where: { products_id: req.params.id }
+        });
+
+        if (!product) {
+            return res.status(404).json({ message: 'Producto no encontrado' });
+        }
+
         await ProductModel.update(req.body, {
             where: { products_id: req.params.id }
         });
@@ -34,6 +42,14 @@ export const updateProduct = async (req, res) => {
 
 export const deleteProduct = async (req, res) => {
     try {
+        const product = await ProductModel.findOne({
+            where: { products_id: req.params.id }
+        });
+
+        if (!product) {
+            return res.status(404).json({ message: 'Producto no encontrado' });
+        }
+
         await ProductModel.destroy({
             where: { products_id: req.params.id }
         });
@@ -44,5 +60,4 @@ export const deleteProduct = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
-
 
